@@ -29,6 +29,7 @@ async function consoleMemos(memos) {
   }
 }
 async function main() {
+  //for senging ether and transaction we need to use getSigners
   const [owner, from1, from2, from3] = await hre.ethers.getSigners();
   const chai = await hre.ethers.getContractFactory("Chai");
   //instance of contract
