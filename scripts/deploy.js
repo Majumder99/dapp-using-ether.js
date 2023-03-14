@@ -35,22 +35,28 @@ async function main() {
   const contract = await chai.deploy();
   //deploying the instance of the contract
   await contract.deployed();
-  console.log(contract, owner, from1, from2, from3);
+  console.log("Contract address", contract.address);
+  // console.log(contract, owner, from1, from2, from3);
   const addresses = [
     owner.address,
     from1.address,
     from2.address,
     from3.address,
   ];
-  console.log("Before buying chai");
-  await consoleBalances(addresses);
+  // console.log("Before buying chai");
+  // await consoleBalances(addresses);
+  //sending the amount
   const amount = { value: hre.ethers.utils.parseEther("1") };
   //conecting the contract with the from1 address
   await contract.connect(from1).buyChai("from1", "very nice chai", amount);
   await contract.connect(from2).buyChai("from2", "very nice chai", amount);
   await contract.connect(from3).buyChai("from3", "very nice chai", amount);
-  console.log("After buying chai");
-  await consoleBalances(addresses);
+  // console.log("After buying chai");
+  // await consoleBalances(addresses);
+
+  const memos = await contract.getMemos();
+  consoleMemos(memos);
+  // console.log(memos);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
